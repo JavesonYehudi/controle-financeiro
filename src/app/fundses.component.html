@@ -1,0 +1,8 @@
+<h2>Meus Fundos</h2>
+<ul class="heroes">
+  	<li *ngFor="let funds of fundses" 
+  	[class.selected]="funds === selectedFunds" 
+  	(click)="onSelect(funds)">
+		<span class="badge">{{funds.id}}</span>{{funds.description}}
+	</li>
+</ul>

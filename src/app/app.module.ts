@@ -1,20 +1,31 @@
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule }   from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { AppComponent }                from './app.component';
+import { FundsesComponent }            from './fundses.component';
+import { FundsDetailsComponent }       from './funds-details.component';
+import { FundsService }                from './funds.service';
+import { BankAccountService }          from './bank-account.service';
+import { BankAccountDetailsComponent } from './bank-account-details.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    FundsesComponent,
+    FundsDetailsComponent,
+    BankAccountDetailsComponent
+  ],
+  providers: [ FundsService, BankAccountService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
