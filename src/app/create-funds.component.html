@@ -1,0 +1,36 @@
+<h2>Cadastrar Fundo</h2>
+<div>
+	<label>Tipo</label>
+	<select (click)="onFundsSeleceted($event.target.value)">
+		<option *ngFor="let option of options" [value]="option" >
+			{{fundsTypes[option]}}
+		</option>
+	</select>
+</div>
+
+<div>
+	<label>Descrição</label>
+	<input #fundDescription>
+</div>
+
+<div *ngIf="fundsTypeSeleceted == fundsTypes['BANK_ACCOUNT']">
+	<div>
+		<label>Agência</label>
+		<input #fundAgency>
+	</div>
+	<div>
+		<label>Conta</label>
+		<input #fundAccount>
+	</div>
+</div>
+
+<div *ngIf="fundsTypeSeleceted == fundsTypes['CREDIT_CARD']">
+	<div>
+		<label>Vencimento</label>
+		<input #fundMaturity>
+	</div>
+	<div>
+		<label>Limite</label>
+		<input #fundLimit>
+	</div>
+</div>

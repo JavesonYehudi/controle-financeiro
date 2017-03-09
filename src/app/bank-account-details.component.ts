@@ -6,7 +6,8 @@ import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
 import { BankAccountService } from './bank-account.service';
-import { BankAccount } from './bank-account';
+import { BankAccount } 		  from './bank-account';
+import { EFundsType } 		  from './e-funds-type';
 
 
 @Component({
@@ -18,6 +19,8 @@ import { BankAccount } from './bank-account';
 
 export class BankAccountDetailsComponent implements OnInit {
 	@Input() bankAccount: BankAccount;
+	EFundsType : typeof EFundsType = EFundsType;
+
 	constructor(
 	  private BankAccountService: BankAccountService,
 	  private route: ActivatedRoute,

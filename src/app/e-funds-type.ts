@@ -1,5 +1,5 @@
 export enum EFundsType {
-    BANK_ACCOUNT = "Bank Account", 
-    CREDIT_CARD = "Credit Card", 
-    DEFAULT = "Default"
+	DEFAULT = <any>"Padrão",
+    BANK_ACCOUNT = <any>"Conta Bancaria", 
+    CREDIT_CARD = <any>"Cartão de Credito"
 }

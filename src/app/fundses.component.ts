@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Funds } from './funds';
+
+import { Funds } 		from './funds';
 import { FundsService } from './funds.service';
+import { EFundsType }	from './e-funds-type';
 
 import {Router} from '@angular/router';
 
@@ -30,13 +32,16 @@ export class FundsesComponent implements OnInit {
 	onSelect(funds: Funds): void {
 		this.selectedFunds = funds;
 
-		if(this.selectedFunds.fundsType == 'BANK_ACCOUNT'){
+		if(EFundsType[this.selectedFunds.fundsType.toString()] == EFundsType['BANK_ACCOUNT']){
 			this.router.navigate(['/bank-account/detail', this.selectedFunds.id]);
-		}else if(this.selectedFunds.fundsType == 'CREDIT_CARD'){
+		}else if(EFundsType[this.selectedFunds.fundsType.toString()] == EFundsType['CREDIT_CARD']){
 			this.router.navigate(['/credit_card/detail', this.selectedFunds.id]);
 		}else{
 			this.router.navigate(['/funds/detail', this.selectedFunds.id]);
 		}
 	}
 
+	gotoCreate(): void{
+		this.router.navigate(['/funds/create']);
+	}
 }

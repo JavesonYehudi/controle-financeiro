@@ -1,6 +1,6 @@
 <div *ngIf="bankAccount">
 	{{bankAccount.description}}
-	{{bankAccount.fundsType}}
+	{{EFundsType[bankAccount.fundsType]}}
 	{{bankAccount.account}}
 	{{bankAccount.agency}}
 	{{bankAccount.balance}}
