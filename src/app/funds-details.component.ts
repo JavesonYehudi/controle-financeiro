@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { FundsService } from './funds.service';
 import { Funds } from './funds';
+import { EFundsType } from './e-funds-type';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { Funds } from './funds';
 
 export class FundsDetailsComponent implements OnInit {
 	@Input() funds: Funds;
+	eFundsType = EFundsType;
 	constructor(
 	  private fundsService: FundsService,
 	  private route: ActivatedRoute,

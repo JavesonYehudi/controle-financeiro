@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Funds } 		from './funds';
 import { FundsService } from './funds.service';
 import { EFundsType }	from './e-funds-type';
+import { EFundsTypePath }	from './e-funds-type-path';
 
 import {Router} from '@angular/router';
 
@@ -16,6 +17,7 @@ import {Router} from '@angular/router';
 export class FundsesComponent implements OnInit {
 	selectedFunds: Funds;	
 	fundses:Funds[];
+	fundsTypePath = EFundsTypePath;
 
 	constructor(
 		private router: Router,
@@ -31,14 +33,8 @@ export class FundsesComponent implements OnInit {
 
 	onSelect(funds: Funds): void {
 		this.selectedFunds = funds;
+		this.router.navigate([this.fundsTypePath[this.selectedFunds.fundsType], this.selectedFunds.id]);
 
-		if(EFundsType[this.selectedFunds.fundsType.toString()] == EFundsType['BANK_ACCOUNT']){
-			this.router.navigate(['/bank-account/detail', this.selectedFunds.id]);
-		}else if(EFundsType[this.selectedFunds.fundsType.toString()] == EFundsType['CREDIT_CARD']){
-			this.router.navigate(['/credit_card/detail', this.selectedFunds.id]);
-		}else{
-			this.router.navigate(['/funds/detail', this.selectedFunds.id]);
-		}
 	}
 
 	gotoCreate(): void{

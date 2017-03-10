@@ -22,14 +22,14 @@ export class BankAccountDetailsComponent implements OnInit {
 	EFundsType : typeof EFundsType = EFundsType;
 
 	constructor(
-	  private BankAccountService: BankAccountService,
+	  private bankAccountService: BankAccountService,
 	  private route: ActivatedRoute,
 	  private location: Location
 	) {}
 
 	ngOnInit(): void {
 		this.route.params
-			.switchMap((params: Params) => this.BankAccountService.getBankAccount(+params['id']))
+			.switchMap((params: Params) => this.bankAccountService.getBankAccount(+params['id']))
 			.subscribe(bankAccount => this.bankAccount = bankAccount);
 	}
 

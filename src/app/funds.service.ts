@@ -1,5 +1,5 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Headers, Http, Response, RequestOptions, Request, RequestMethod } from '@angular/http';
 
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
@@ -26,6 +26,16 @@ this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb2
   getFunds(id: number): Promise<Funds> {
     return this.getFundses()
              .then(fundses => fundses.find(funds => funds.id === id));
+  }
+
+  setFunds(funds: Funds): Promise<Funds>{
+    var requestoptions = new RequestOptions({
+      method: RequestMethod.Post,
+      url: this.fundsesUrl + '/create',
+      headers: this.headers,
+      body: JSON.stringify(funds)
+    });
+    return this.http.request(new Request(requestoptions)).toPromise().then(response => response.json() as Funds)
   }
 
   private handleError(error: any): Promise<any> {
