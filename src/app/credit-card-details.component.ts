@@ -29,7 +29,7 @@ export class CreditCardDetailsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.route.params
-			.switchMap((params: Params) => this.creditCardService.getBankAccount(+params['id']))
+			.switchMap((params: Params) => this.creditCardService.getCreditCard(+params['id']))
 			.subscribe(creditCard => this.creditCard = creditCard);
 	}
 

@@ -10,7 +10,7 @@ import { Funds } from './funds';
 
 @Injectable()
 export class FundsService {
-  private fundsesUrl = 'http://10.3.2.136:8080/controle-financeiro-ws/funds';  // URL to web api
+  private fundsesUrl = 'http://localhost:8080/controle-financeiro-ws/funds';  // URL to web api
   private headers = new Headers({'Content-Type': 'application/json'});  
 
   constructor(private http: Http) {
@@ -35,7 +35,7 @@ this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb2
       headers: this.headers,
       body: JSON.stringify(funds)
     });
-    return this.http.request(new Request(requestoptions)).toPromise().then(response => response.json() as Funds)
+    return this.http.request(new Request(requestoptions)).toPromise().then(response => response.json() as Funds).catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

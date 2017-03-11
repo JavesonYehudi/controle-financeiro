@@ -1,7 +1,7 @@
 <div *ngIf="creditCard">
 	{{creditCard.description}}
 	{{EFundsType[creditCard.fundsType]}}
-	{{creditCard.account}}
-	{{creditCard.agency}}
-	{{creditCard.balance}}
+	{{creditCard.maturity}}
+	{{creditCard.limitValue}}
+	{{creditCard.limitValue - creditCard.balance}}
 </div>

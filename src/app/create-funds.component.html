@@ -32,16 +32,16 @@
 		<div *ngIf="fundsTypeSeleceted == fundsTypes['CREDIT_CARD']">
 			<div class="form-group">
 				<label>Vencimento</label>
-				<input type="text" class="form-control" id="matutity" required [(ngModel)]="creditCard.matutity" name="matutity" #matutity="ngModel">
-				<div [hidden]="matutity.valid || matutity.pristine" class="alert alert-danger">
+				<input type="text" class="form-control" id="maturity" required [(ngModel)]="creditCard.maturity" name="maturity" #maturity="ngModel">
+				<div [hidden]="maturity.valid || maturity.pristine" class="alert alert-danger">
 					Maturity is required
 				</div>
 				
 			</div>
 			<div class="form-group">
 				<label>Limite</label>
-				<input type="text" class="form-control" id="limit" required [(ngModel)]="creditCard.limit" name="limit" #limit="ngModel">
-				<div [hidden]="limit.valid || limit.pristine" class="alert alert-danger">
+				<input type="text" class="form-control" id="limitValue" required [(ngModel)]="creditCard.limitValue" name="limitValue" #limitValue="ngModel">
+				<div [hidden]="limitValue.valid || limitValue.pristine" class="alert alert-danger">
 					Limit is required
 				</div>
 
