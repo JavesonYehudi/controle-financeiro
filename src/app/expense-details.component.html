@@ -1,0 +1,17 @@
+<div *ngIf="expense">
+	{{expense.description}}
+	{{expense.funds.description}}
+	{{expense.fixedTransaction}}
+	{{expense.recurrent}}
+	{{expense.calendarPeriod}}
+	{{expense.eFinancialTransactionType}}
+	{{expense.group}}
+	<span *ngFor="let maturity of expense.maturityList">
+		{{maturity.date}}
+		{{maturity.value}}
+		<div *ngIf="maturity.payment">
+		{{maturity.payment.datePayment}} 
+		{{maturity.payment.valuePaid}}
+		</div>
+	</span>
+</div>

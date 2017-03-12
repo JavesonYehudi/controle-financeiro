@@ -42,7 +42,6 @@ export class CreateFundsComponent implements OnInit {
 
 	onSubmit(){
 		this.submitted = true;
-		console.log(this.fundsTypeSeleceted);
 		if(this.fundsTypeSeleceted == this.fundsTypes['BANK_ACCOUNT']){
 			this.bankAccount.description = this.funds.description;
 			this.bankAccount.fundsType = this.funds.fundsType;

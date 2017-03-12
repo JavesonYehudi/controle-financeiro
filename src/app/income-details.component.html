@@ -1,0 +1,17 @@
+<div *ngIf="income">
+	{{income.description}}
+	{{income.funds.description}}
+	{{income.fixedTransaction}}
+	{{income.recurrent}}
+	{{income.calendarPeriod}}
+	{{income.eFinancialTransactionType}}
+	{{income.group}}
+	<span *ngFor="let maturity of income.maturityList">
+		{{maturity.date}}
+		{{maturity.value}}
+		<div *ngIf="maturity.payment">
+		{{maturity.payment.datePayment}} 
+		{{maturity.payment.valuePaid}}
+		</div>
+	</span>
+</div>

@@ -1,0 +1,50 @@
+<h2>Cadastrar Transação Financeira</h2>
+<div class="col-xs-3">
+	<form (ngSubmit)="onSubmit()" #financialTransactionForm="ngForm">
+		<div class="form-group">
+			<label>Tipo</label>
+			<select class="form-control" id="option" [(ngModel)]="option" name="option">
+				<option *ngFor="let option of options" [value]="option" >
+					{{option}}
+				</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label>Conta</label>
+			<select class="form-control" id="financialTransaction.funds.id" [(ngModel)]="financialTransaction.funds.id" name="financialTransaction.funds.id">
+				<option>Selecione</option>
+				<option *ngFor="let funds of fundses" [value]="funds.id" >
+					{{funds.description}}
+				</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="description">Descrição</label>
+			<input type="text" class="form-control" id="description" [(ngModel)]="financialTransaction.description" name="description" #description="ngModel">
+		</div>
+
+		<div class="form-group">
+			<label>Vencimento</label>
+			<input type="text" class="form-control" id="firstMaturity" [(ngModel)]="financialTransaction.firstMaturity" name="firstMaturity">
+		</div>
+
+		<div class="form-group">
+			<label>Valor</label>
+			<input type="text" class="form-control" id="valueTransaction" [(ngModel)]="financialTransaction.valueTransaction" name="valueTransaction">
+		</div>
+
+		<div class="form-group">
+			<label>Transação Fixa</label>
+			<input type="checkbox" class="form-control" id="fixedTransaction" [(ngModel)]="financialTransaction.fixedTransaction" name="fixedTransaction">
+		</div>
+
+		<div class="form-group" *ngIf="!financialTransaction.fixedTransaction">
+			<label>Recorrencia</label>
+			<input type="text" class="form-control" id="recurrent" [(ngModel)]="financialTransaction.recurrent" name="recurrent">
+		</div>
+
+		 <button type="submit" class="btn btn-success" [disabled]="!financialTransactionForm.form.valid">Submit</button>
+	</form>
+</div>

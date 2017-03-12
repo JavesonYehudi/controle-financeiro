@@ -1,0 +1,11 @@
+<h2>Minhas Despesas</h2>
+
+<ul class="heroes">
+	<li *ngFor="let expense of expenses"
+	[class.selected]="expense === selectedExpense" 
+  	(click)="onSelect(expense)">
+		<span class="badge">{{expense.id}}</span> {{expense.description}}
+	</li>
+</ul>
+
+<button (click)="gotoCreate()" class="btn">Novo</button>

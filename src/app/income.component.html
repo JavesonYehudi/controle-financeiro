@@ -1,0 +1,11 @@
+<h2>Minhas Receitas</h2>
+
+<ul class="heroes">
+	<li *ngFor="let income of incomes"
+	[class.selected]="income === selectedIncome" 
+  	(click)="onSelect(income)">
+		<span class="badge">{{income.id}}</span> {{income.description}}
+	</li>
+</ul>
+
+<button (click)="gotoCreate()" class="btn">Novo</button>
