@@ -25,7 +25,7 @@ export class IncomeComponent implements OnInit {
 	}
 
 	getIncomes(): void {
-		this.incomeService.getFinancialtransactions().then(incomes => this.incomes = incomes);
+		this.incomeService.getFinancialTransactions().then(incomes => this.incomes = incomes);
 	}
 
 	onSelect(income: FinancialTransaction): void {

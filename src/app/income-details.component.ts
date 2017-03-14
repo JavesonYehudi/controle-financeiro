@@ -27,7 +27,7 @@ export class IncomeDetailsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.route.params
-			.switchMap((params: Params) => this.incomeService.getFinancialtransaction(+params['id']))
+			.switchMap((params: Params) => this.incomeService.getFinancialTransaction(+params['id']))
 			.subscribe(income => this.income = income);
 	}
 

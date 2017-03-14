@@ -42,14 +42,14 @@ export class CreateFinancialTransactionComponent implements OnInit {
 		this.submitted = true;
 		console.log(this.option);
 		if(this.option == 'INCOME'){
-			this.incomeService.setFinancialtransaction(this.financialTransaction).then(financialTransaction => {
+			this.incomeService.setFinancialTransaction(this.financialTransaction).then(financialTransaction => {
 				this.financialTransaction = financialTransaction;
 				this.router.navigate(['/incomes']);
 			} );
 		}
 
 		if(this.option == 'EXPENSE'){
-			this.expenseService.setFinancialtransaction(this.financialTransaction).then(financialTransaction => {
+			this.expenseService.setFinancialTransaction(this.financialTransaction).then(financialTransaction => {
 				this.financialTransaction = financialTransaction;
 				this.router.navigate(['/expenses']);
 			} );

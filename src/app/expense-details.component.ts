@@ -27,7 +27,7 @@ export class ExpenseDetailsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.route.params
-			.switchMap((params: Params) => this.expenseService.getFinancialtransaction(+params['id']))
+			.switchMap((params: Params) => this.expenseService.getFinancialTransaction(+params['id']))
 			.subscribe(expense => this.expense = expense);
 	}
 

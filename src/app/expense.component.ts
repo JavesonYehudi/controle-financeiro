@@ -25,7 +25,7 @@ export class ExpenseComponent implements OnInit {
 	}
 
 	getExpenses(): void {
-		this.expenseService.getFinancialtransactions().then(expenses => this.expenses = expenses);
+		this.expenseService.getFinancialTransactions().then(expenses => this.expenses = expenses);
 	}
 
 	onSelect(expense: FinancialTransaction): void {
