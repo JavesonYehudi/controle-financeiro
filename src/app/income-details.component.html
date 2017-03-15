@@ -1,17 +1,34 @@
 <div *ngIf="income">
-	{{income.description}}
-	{{income.funds.description}}
-	{{income.fixedTransaction}}
-	{{income.recurrent}}
-	{{income.calendarPeriod}}
-	{{income.eFinancialTransactionType}}
-	{{income.group}}
+	<div>
+		<span>Descrição: </span>{{income.description}}
+	</div>
+	<div>
+		<span>Conta: </span>{{income.funds.description}}
+	</div>
+	<div>
+		<span>Transação fixa: </span>{{income.fixedTransaction}}
+	</div>
+	<div *ngIf="!income.fixedTransaction">
+		<span>Recorrencia: </span>{{income.recurrent}}
+	</div>
+	<div>
+		<span>Periodo: </span>{{income.calendarPeriod}}
+	</div>
+	<div>
+		{{income.eFinancialTransactionType}}
+	</div>
+	<div *ngIf="income.group">
+		<span>Grupo: </span>{{income.group.description}}
+	</div>
 	<span *ngFor="let maturity of income.maturityList">
+		<div> <span>Vencimento: </span>
 		{{maturity.date}}
 		{{maturity.value}}
 		<div *ngIf="maturity.payment">
+		<span>Pagamento:</span>
 		{{maturity.payment.datePayment}} 
 		{{maturity.payment.valuePaid}}
+		</div>
 		</div>
 	</span>
 </div>

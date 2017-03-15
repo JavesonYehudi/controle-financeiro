@@ -1,7 +1,6 @@
 import { Component} from '@angular/core';
 import { Funds } from './funds';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

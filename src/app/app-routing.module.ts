@@ -11,6 +11,7 @@ import { IncomeDetailsComponent } from './income-details.component';
 import { ExpenseDetailsComponent } from './expense-details.component';
 import { BankAccountDetailsComponent } from './bank-account-details.component';
 import { CreditCardDetailsComponent } from './credit-card-details.component';
+import { MyCalendarComponent } from './my-calendar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/fundses', pathMatch: 'full' },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'income/detail/:id', component: IncomeDetailsComponent },
   { path: 'expense/detail/:id', component: ExpenseDetailsComponent },
   { path: 'bank-account/detail/:id', component: BankAccountDetailsComponent },
-  { path: 'credit-card/detail/:id', component: CreditCardDetailsComponent }
+  { path: 'credit-card/detail/:id', component: CreditCardDetailsComponent },
+  { path: 'calendar', component: MyCalendarComponent }
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

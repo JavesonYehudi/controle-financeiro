@@ -26,12 +26,17 @@ import { ExpenseService }               from './expense.service';
 import { BankAccountService }          from './bank-account.service';
 import { CreditCardService }           from './credit-card.service';
 
+import { MyCalendarComponent }           from './my-calendar.component';
+import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
+import {ScheduleModule} from 'primeng/primeng';
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ScheduleModule
   ],
   declarations: [
     AppComponent,
@@ -44,7 +49,9 @@ import { CreditCardService }           from './credit-card.service';
     IncomeDetailsComponent,
     ExpenseDetailsComponent,
     CreditCardDetailsComponent,
-    BankAccountDetailsComponent
+    BankAccountDetailsComponent,
+    CalendarComponent,
+    MyCalendarComponent
   ],
   providers: [ FundsService, CreditCardService, BankAccountService, IncomeService, ExpenseService ],
   bootstrap: [ AppComponent ]
