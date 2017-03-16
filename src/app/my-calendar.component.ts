@@ -10,7 +10,6 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'cf-calendar',
   templateUrl: './my-calendar.component.html',
-  styleUrls: ['./my-calendar.component.css'],
   providers: []
 })
 
@@ -20,8 +19,7 @@ export class MyCalendarComponent implements OnInit {
     financialTransactionFixed = new Array<FinancialTransaction>();
 
     ngOnInit() {
-        this.getIncomes();
-        this.getExpenses();
+        this.getTransactions();
         this.headerConfig = {
             left: 'prev,next today',
             center: 'title',
@@ -34,7 +32,7 @@ export class MyCalendarComponent implements OnInit {
         private incomeService: IncomeService,
         private expenseService: ExpenseService) { }
 
-    getIncomes(): void {
+    getTransactions(): void {
         this.incomeService.getFinancialTransactions().then(incomes => {
             for(let income of incomes){
                 for(let maturity of income.maturityList){
@@ -46,11 +44,8 @@ export class MyCalendarComponent implements OnInit {
                 if(income.fixedTransaction)
                    this.financialTransactionFixed.push(income);
             }
-            console.log(this.financialTransactionFixed);
         });
-    }
 
-    getExpenses(): void {
         this.expenseService.getFinancialTransactions().then(expenses => {
             for(let expense of expenses){
                 for(let maturity of expense.maturityList){
@@ -59,15 +54,21 @@ export class MyCalendarComponent implements OnInit {
                         "start": maturity.date
                     });
                 }
+                if(expense.fixedTransaction)
+                    this.financialTransactionFixed.push(expense);
             }
         });
     }
 
     loadEvents(event) {
-        let start = event.view.start
-        let end = event.view.end
-        console.log(start._d);
-        console.log(end._d);
-        this.events.push({"title": "Teste", "start": "2017-03-10"});
+        let month = event.view.intervalEnd._d.getMonth()+1;
+        let year = event.view.intervalEnd._d.getFullYear();
+
+        month = month < 10 ? '0'+month.toString() : month;
+        for(let financialTransaction of this.financialTransactionFixed){
+            let date = year + '-' + month + '-' + financialTransaction.firstMaturity.substring(8, 10);
+            if(!this.events.some(event => event.title == financialTransaction.description && event.start == date) && financialTransaction.firstMaturity < date)
+                this.events.push({"title": financialTransaction.description, "start": date});
+        }
     }
 }
