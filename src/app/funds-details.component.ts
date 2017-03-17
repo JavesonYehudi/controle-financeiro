@@ -13,7 +13,6 @@ import { EFundsType } from './e-funds-type';
 @Component({
   selector: 'my-funds-details',
   templateUrl: './funds-details.component.html',
-  styleUrls: ['./funds-details.component.css'],
   providers: []
 })
 

@@ -12,7 +12,6 @@ import { FinancialTransaction } from './financial-transaction';
 @Component({
   selector: 'my-income-details',
   templateUrl: './income-details.component.html',
-  styleUrls: ['./income-details.component.css'],
   providers: []
 })
 

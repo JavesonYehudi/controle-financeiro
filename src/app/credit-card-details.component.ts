@@ -13,7 +13,6 @@ import { EFundsType } 		  from './e-funds-type';
 @Component({
   selector: 'my-credit-card-details',
   templateUrl: './credit-card-details.component.html',
-  styleUrls: ['./credit-card-details.component.css'],
   providers: []
 })
 

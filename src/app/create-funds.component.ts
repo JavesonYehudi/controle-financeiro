@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'create-funds',
   templateUrl: './create-funds.component.html',
-  styleUrls: ['./create-funds.component.css'],
   providers: []
 })
 

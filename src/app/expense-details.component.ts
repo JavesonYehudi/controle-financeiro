@@ -12,7 +12,6 @@ import { FinancialTransaction } from './financial-transaction';
 @Component({
   selector: 'my-expense-details',
   templateUrl: './expense-details.component.html',
-  styleUrls: ['./expense-details.component.css'],
   providers: []
 })
 

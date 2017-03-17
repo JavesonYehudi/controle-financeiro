@@ -14,7 +14,7 @@ import { CreditCardDetailsComponent } from './credit-card-details.component';
 import { MyCalendarComponent } from './my-calendar.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/fundses', pathMatch: 'full' },
+  { path: '', redirectTo: '/calendar', pathMatch: 'full' },
   { path: 'fundses', component: FundsesComponent },
   { path: 'incomes', component: IncomeComponent },
   { path: 'expenses', component: ExpenseComponent },

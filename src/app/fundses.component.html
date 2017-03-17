@@ -1,9 +1,11 @@
 <h2>Meus Fundos</h2>
+<div *ngIf="!fundses">
+	<img src="assets/img/5.gif">
+</div>
 <ul class="heroes">
   	<li *ngFor="let funds of fundses" 
-  	[class.selected]="funds === selectedFunds" 
   	(click)="onSelect(funds)">
-		<span class="badge">{{funds.id}}</span>{{funds.description}}
+		<span class="badge">{{funds.description}}</span>{{funds.balance | currency:'BRL':true:'1.2-2'}}
 	</li>
 </ul>
 

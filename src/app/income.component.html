@@ -1,5 +1,5 @@
 <h2>Minhas Receitas</h2>
-
+<div *ngIf="!incomes"><img src="assets/img/5.gif"></div>
 <ul class="heroes">
 	<li *ngFor="let income of incomes"
 	[class.selected]="income === selectedIncome" 
