@@ -15,4 +15,5 @@ export class FinancialTransaction {
 	recurrent: number;
 	calendarPeriod: number;
 	group: string;
+	financialTransactionType: EFinancialTransactionType;
 }

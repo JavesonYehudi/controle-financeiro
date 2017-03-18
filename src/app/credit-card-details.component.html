@@ -1,7 +1,25 @@
-<div *ngIf="creditCard">
-	{{creditCard.description}}
-	{{EFundsType[creditCard.fundsType]}}
-	{{creditCard.maturity}}
-	{{creditCard.limitValue}}
-	{{creditCard.limitValue - creditCard.balance}}
-</div>
+<form *ngIf="creditCard" (ngSubmit)="onSubmit()" #fundsForm="ngForm">
+	<div class="form-group">
+		<label for="description">Descrição:</label> 
+		<input type="text" class="form-control" id="description" required [(ngModel)]="creditCard.description" name="description" #name="ngModel" value="{{creditCard.description}}">
+	</div>
+	<div class="form-group">
+		<label for="fundsType">Tipo:</label> 
+		<input type="text" class="form-control" id="fundsType" readonly="" [(ngModel)]="creditCard.fundsType" name="fundsType" #name="ngModel" value="{{EFundsType[creditCard.fundsType]}}">
+	</div>
+	<div class="form-group">
+		<label for="maturity">Vencimento:</label> 
+		<input type="text" class="form-control" id="maturity" [(ngModel)]="creditCard.maturity" name="maturity" value="{{creditCard.maturity}}">
+	</div>
+	<div class="form-group">
+		<label for="limitValue">Limite:</label> 
+		<input type="text" class="form-control" id="limitValue" readonly="" value="{{creditCard.limitValue | currency:'BRL':true:'1.2-2'}}">
+	</div>
+	<div class="form-group">
+		<label for="balance">Disponivel:</label> 
+		<input type="text" class="form-control" id="balance" readonly="" value="{{creditCard.limitValue - creditCard.balance | currency:'BRL':true:'1.2-2'}}">
+	</div>
+
+	<button type="submit" class="btn btn-success" [disabled]="!fundsForm.form.valid">Salvar</button>
+	<button type="button" (click)="onDelete()" class="btn btn-danger">Deletar</button>
+</form>

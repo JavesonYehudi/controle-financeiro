@@ -5,29 +5,58 @@ import { Location }                 from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
 
+import { FundsService } from './funds.service';
 import { ExpenseService } from './expense.service';
+
+import { Funds }	from './funds';
 import { FinancialTransaction } from './financial-transaction';
 
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'my-expense-details',
-  templateUrl: './expense-details.component.html',
+  templateUrl: './create-financial-transaction.component.html',
   providers: []
 })
 
 export class ExpenseDetailsComponent implements OnInit {
-	@Input() expense: FinancialTransaction;
+	financialTransaction = new FinancialTransaction();
+	financialTransactionType: string;
+	fundses: Funds[];
+	submitted = false;
+	options : Array<string>;
+	option: string;
+	isEdit = true;
 
 	constructor(
 	  private expenseService: ExpenseService,
 	  private route: ActivatedRoute,
-	  private location: Location
+	  private location: Location,
+	  private router: Router,
+	  private fundsService: FundsService
 	) {}
 
 	ngOnInit(): void {
+		this.options = ['INCOME', 'EXPENSE'];
+		this.getFundses();
 		this.route.params
 			.switchMap((params: Params) => this.expenseService.getFinancialTransaction(+params['id']))
-			.subscribe(expense => this.expense = expense);
+			.subscribe(financialTransaction => this.financialTransaction = financialTransaction);
 	}
 
+	getFundses(): void {
+		this.fundsService.getFundses().then(fundses => this.fundses = fundses);
+	}
+
+	onSubmit(){
+		this.expenseService.updateFinancialTransaction(this.financialTransaction).then(() => {
+			this.router.navigate(['/expenses']);
+		});
+	}
+
+	onDelete(){
+		this.expenseService.deleteFinancialTransaction(this.financialTransaction.id).then(() => {
+			this.router.navigate(['/expenses']);
+		});
+	}
 }

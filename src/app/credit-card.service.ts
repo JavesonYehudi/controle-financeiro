@@ -39,6 +39,19 @@ this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb2
     return this.http.request(new Request(requestoptions)).toPromise().then(response => response.json() as CreditCard)
   }
 
+  updateCreditCard(creditCard: CreditCard): Promise<CreditCard>{
+    var requestoptions = new RequestOptions({headers: this.headers});
+    let body = JSON.stringify(creditCard);
+    return this.http.put(`${this.creditCardUrl}/update/${creditCard.id}` , body, requestoptions)
+      .toPromise().then(response => response.json() as CreditCard);
+  }
+
+  deleteCreditCard(id:number): Promise<CreditCard>{
+    var requestoptions = new RequestOptions({headers: this.headers});
+    return this.http.delete(`${this.creditCardUrl}/delete/${id}`, requestoptions)
+      .toPromise().then(response => response.json());
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

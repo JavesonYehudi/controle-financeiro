@@ -9,6 +9,7 @@ import { FundsService } from './funds.service';
 import { Funds } from './funds';
 import { EFundsType } from './e-funds-type';
 
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'my-funds-details',
@@ -22,6 +23,7 @@ export class FundsDetailsComponent implements OnInit {
 	constructor(
 	  private fundsService: FundsService,
 	  private route: ActivatedRoute,
+	  private router: Router,
 	  private location: Location
 	) {}
 
@@ -31,4 +33,15 @@ export class FundsDetailsComponent implements OnInit {
 			.subscribe(funds => this.funds = funds);
 	}
 
+	onSubmit(){
+		this.fundsService.updateFunds(this.funds).then(() => {
+			this.router.navigate(['/fundses']);
+		});
+	}
+
+	onDelete(){
+		this.fundsService.deleteFunds(this.funds.id).then(() => {
+			this.router.navigate(['/fundses']);
+		});
+	}
 }

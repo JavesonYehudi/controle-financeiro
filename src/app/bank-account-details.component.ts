@@ -9,6 +9,7 @@ import { BankAccountService } from './bank-account.service';
 import { BankAccount } 		  from './bank-account';
 import { EFundsType } 		  from './e-funds-type';
 
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'my-bank-account-details',
@@ -23,6 +24,7 @@ export class BankAccountDetailsComponent implements OnInit {
 	constructor(
 	  private bankAccountService: BankAccountService,
 	  private route: ActivatedRoute,
+	  private router: Router,
 	  private location: Location
 	) {}
 
@@ -32,4 +34,15 @@ export class BankAccountDetailsComponent implements OnInit {
 			.subscribe(bankAccount => this.bankAccount = bankAccount);
 	}
 
+	onSubmit(){
+		this.bankAccountService.updateBankAccount(this.bankAccount).then(() => {
+				this.router.navigate(['/fundses']);
+			});
+	}
+
+	onDelete(){
+		this.bankAccountService.deleteBankAccount(this.bankAccount.id).then(() => {
+			this.router.navigate(['/fundses']);
+		});
+	}
 }

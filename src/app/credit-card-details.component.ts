@@ -9,6 +9,7 @@ import { CreditCardService } from './credit-card.service';
 import { CreditCard } 		  from './credit-card';
 import { EFundsType } 		  from './e-funds-type';
 
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'my-credit-card-details',
@@ -23,6 +24,7 @@ export class CreditCardDetailsComponent implements OnInit {
 	constructor(
 	  private creditCardService: CreditCardService,
 	  private route: ActivatedRoute,
+	  private router: Router,
 	  private location: Location
 	) {}
 
@@ -32,4 +34,15 @@ export class CreditCardDetailsComponent implements OnInit {
 			.subscribe(creditCard => this.creditCard = creditCard);
 	}
 
+	onSubmit(){
+		this.creditCardService.updateCreditCard(this.creditCard).then(() => {
+				this.router.navigate(['/fundses']);
+			});
+	}
+
+	onDelete(){
+		this.creditCardService.deleteCreditCard(this.creditCard.id).then(() => {
+			this.router.navigate(['/fundses']);
+		});
+	}
 }

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FinancialTransaction }         from './financial-transaction';
 import { IncomeService }        from './income.service';
 import { ExpenseService }        from './expense.service';
+import { Maturity }             from './maturity'
+import { Payment }             from './payment'
 
 import {Router} from '@angular/router';
 
@@ -18,6 +20,9 @@ export class MyCalendarComponent implements OnInit {
     eventCalendar: any;
     headerConfig: any;
     financialTransactionFixed = new Array<FinancialTransaction>();
+    displayDialog: boolean = false;
+    maturity: Maturity = new Maturity();
+    payment: Payment = new Payment();
 
     ngOnInit() {
         this.getTransactions();
@@ -35,33 +40,11 @@ export class MyCalendarComponent implements OnInit {
 
     getTransactions(): void {
         this.incomeService.getFinancialTransactions().then(incomes => {
-            for(let income of incomes){
-                for(let maturity of income.maturityList){
-                    this.events.push({
-                        "title": income.description,
-                        "start": maturity.date
-                    });
-                }
-                if(income.fixedTransaction)
-                   this.financialTransactionFixed.push(income);
-            }
-
-            this.loadEvents(this.eventCalendar);
+            this.getFinancialTransaction(incomes);
         });
 
         this.expenseService.getFinancialTransactions().then(expenses => {
-            for(let expense of expenses){
-                for(let maturity of expense.maturityList){
-                    this.events.push({
-                        "title": expense.description,
-                        "start": maturity.date
-                    });
-                }
-                if(expense.fixedTransaction)
-                    this.financialTransactionFixed.push(expense);
-            }
-
-            this.loadEvents(this.eventCalendar);
+            this.getFinancialTransaction(expenses);
         });
     }
 
@@ -89,16 +72,62 @@ export class MyCalendarComponent implements OnInit {
             date = date + financialTransaction.firstMaturity.substring(8, 10);
 
             if(!this.events.some(event => event.title == financialTransaction.description && event.start == date) && financialTransaction.firstMaturity < date)
-                this.events.push({"title": financialTransaction.description, "start": date, "style":true});
+                this.generateEvent(financialTransaction, undefined, date);
 
             nextDate = nextDate + financialTransaction.firstMaturity.substring(8, 10);
             if(!this.events.some(event => event.title == financialTransaction.description && event.start == nextDate) && financialTransaction.firstMaturity < nextDate)
-                this.events.push({"title": financialTransaction.description, "start": nextDate});
+                this.generateEvent(financialTransaction, undefined, nextDate);
 
             previousDate = previousDate + financialTransaction.firstMaturity.substring(8, 10);
             if(!this.events.some(event => event.title == financialTransaction.description && event.start == previousDate) && financialTransaction.firstMaturity < previousDate)
-                this.events.push({"title": financialTransaction.description, "start": previousDate});
+                this.generateEvent(financialTransaction, undefined, previousDate);
 
+        }
+    }
+
+    getFinancialTransaction(financialTransactions: Array<FinancialTransaction>){
+        for(let financialTransaction of financialTransactions){
+            for(let maturity of financialTransaction.maturityList){
+                this.generateEvent(financialTransaction, maturity, maturity.date);
+            }
+
+            if(financialTransaction.fixedTransaction)
+                this.financialTransactionFixed.push(financialTransaction);
+        }
+
+        this.loadEvents(this.eventCalendar);
+    }
+
+    generateEvent(financialTransaction: FinancialTransaction, maturity: Maturity, date: string) {
+        let paidStatus = (maturity != null && maturity.payment != null) ? 'paid' : 'notPaid';
+        this.events.push({
+            "title": financialTransaction.description, 
+            "start": date,
+            "className": [financialTransaction.financialTransactionType, paidStatus],
+            "maturity": maturity,
+            "transacao": financialTransaction
+
+        });
+    }
+
+    handleEventClick(event) {
+        console.log(event.calEvent.maturity);
+        if(event.calEvent.maturity == undefined){
+            this.maturity.date = event.calEvent.start;
+            this.maturity.value = event.calEvent.transacao.valueTransaction;
+        } else
+            this.maturity = event.calEvent.maturity;
+
+        this.maturity.financialTransaction = event.calEvent.transacao;
+        this.payment.datePayment = this.maturity.date;
+        this.payment.valuePaid = this.maturity.value;
+        this.payment.maturity = this.maturity;
+        this.displayDialog = true;
+    }
+
+    onPaymentSubmit(){
+        if(this.payment.maturity.financialTransaction.financialTransactionType == "EXPENSE"){
+            expenseService.paid(this.payment);
         }
     }
 }

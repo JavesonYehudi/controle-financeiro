@@ -1,5 +1,17 @@
-<div *ngIf="funds">
-	{{funds.description}}
-	{{eFundsType[funds.fundsType]}}
-	{{funds.balance}}
-</div>
+<form *ngIf="funds" (ngSubmit)="onSubmit()" #fundsForm="ngForm">
+	<div class="form-group">
+		<label for="description">Descrição:</label> 
+		<input type="text" class="form-control" id="description" required [(ngModel)]="funds.description" name="description" #name="ngModel" value="{{funds.description}}">
+	</div>
+	<div class="form-group">
+		<label for="fundsType">Tipo:</label> 
+		<input type="text" class="form-control" id="fundsType" readonly="" [(ngModel)]="funds.fundsType" name="fundsType" #name="ngModel" value="{{eFundsType[funds.fundsType]}}">
+	</div>
+	<div class="form-group">
+		<label for="balance">Saldo atual:</label> 
+		<input type="text" class="form-control" id="balance" readonly="" value="{{funds.balance | currency:'BRL':true:'1.2-2'}}">
+	</div>
+
+	<button type="submit" class="btn btn-success" [disabled]="!fundsForm.form.valid">Salvar</button>
+	<button type="button" (click)="onDelete()" class="btn btn-danger">Deletar</button>
+</form>

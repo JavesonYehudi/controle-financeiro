@@ -27,8 +27,9 @@ import { BankAccountService }          from './bank-account.service';
 import { CreditCardService }           from './credit-card.service';
 
 import { MyCalendarComponent }           from './my-calendar.component';
-import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
-import {ScheduleModule} from 'primeng/primeng';
+import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
+import { ScheduleModule } from 'primeng/primeng';
+import { DialogModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {ScheduleModule} from 'primeng/primeng';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    ScheduleModule
+    ScheduleModule,
+    DialogModule
   ],
   declarations: [
     AppComponent,

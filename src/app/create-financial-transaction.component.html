@@ -1,9 +1,12 @@
-<h2>Cadastrar Transação Financeira</h2>
+<h2>
+	<label *ngIf="!isEdit">Cadastrar</label>
+	Transação Financeira
+</h2>
 <form (ngSubmit)="onSubmit()" #financialTransactionForm="ngForm">
 	<div class="form-group">
 		<label for="option">Tipo</label>
 		<select id="option" [(ngModel)]="option" name="option" class="form-control">
-			<option *ngFor="let option of options" [value]="option" >
+			<option *ngFor="let option of options" [value]="option" [selected]="option == financialTransaction.financialTransactionType">
 				{{option}}
 			</option>
 		</select>
@@ -46,5 +49,6 @@
 		<input type="text" id="recurrent" [(ngModel)]="financialTransaction.recurrent" name="recurrent" class="form-control">
 	</div>
 
-	<button type="submit" class="btn btn-success" [disabled]="!financialTransactionForm.form.valid">Submit</button>
+	<button type="submit" class="btn btn-success" [disabled]="!financialTransactionForm.form.valid">Salvar</button>
+	<button *ngIf="isEdit" type="button" (click)="onDelete()" class="btn btn-danger">Deletar</button>
 </form>
