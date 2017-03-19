@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
 import { FinancialTransaction } from './financial-transaction';
+import { Payment } from './payment';
 
 
 @Injectable()
@@ -50,6 +51,13 @@ this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb2
     var requestoptions = new RequestOptions({headers: this.headers});
     return this.http.delete(`${this.financialTransactionUrl}/delete/${id}`, requestoptions)
       .toPromise().then(response => response.json());
+  }
+
+  pay(payment: Payment, transaction: FinancialTransaction): Promise<FinancialTransaction>{
+    var requestoptions = new RequestOptions({headers: this.headers});
+    let body = JSON.stringify(payment);
+    return this.http.put(`${this.financialTransactionUrl}/pay/${transaction.id}`, body, requestoptions)
+      .toPromise().then(response => response.json() as FinancialTransaction);
   }
 
   private handleError(error: any): Promise<any> {

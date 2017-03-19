@@ -10,7 +10,6 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'my-fundses',
   templateUrl: './fundses.component.html',
-  styleUrls: ['./fundses.component.css'],
   providers: []
 })
 

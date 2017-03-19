@@ -1,8 +1,37 @@
 a.EXPENSE {
-	background-color: red;
-	border-color: red;
+	background-color: #790000;
+	border-color: #790000;
 }
 
 a.INCOME {
 	
+}
+
+a.paid {
+	background-image: url("assets/img/paid.png");
+	background-repeat: no-repeat;
+    background-position: right; 
+}
+
+.transaction {
+	list-style-type: none;
+}
+.transaction li {
+	cursor: pointer;
+	width: 190px;
+	text-align: right;
+}
+.transaction li.selected:hover {
+	background-color: #BBD8DC !important;
+	color: white;
+}
+.transaction li:hover {
+	background-color: #DDD;
+}
+.transaction .text {
+	position: relative;
+}
+.transaction .badge {
+	display: inline-block;
+	background-color: #607D8B;
 }

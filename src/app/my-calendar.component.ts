@@ -23,6 +23,7 @@ export class MyCalendarComponent implements OnInit {
     displayDialog: boolean = false;
     maturity: Maturity = new Maturity();
     payment: Payment = new Payment();
+    financialTransaction: FinancialTransaction = new FinancialTransaction();
 
     ngOnInit() {
         this.getTransactions();
@@ -106,28 +107,42 @@ export class MyCalendarComponent implements OnInit {
             "className": [financialTransaction.financialTransactionType, paidStatus],
             "maturity": maturity,
             "transacao": financialTransaction
-
         });
     }
 
     handleEventClick(event) {
-        console.log(event.calEvent.maturity);
+        let maturity = new Maturity();
+        let payment = new Payment();
         if(event.calEvent.maturity == undefined){
-            this.maturity.date = event.calEvent.start;
-            this.maturity.value = event.calEvent.transacao.valueTransaction;
-        } else
-            this.maturity = event.calEvent.maturity;
+            maturity.date = event.calEvent.start._i;
+            maturity.value = event.calEvent.transacao.valueTransaction;
+        } else{
+            maturity = event.calEvent.maturity;
+        }
 
-        this.maturity.financialTransaction = event.calEvent.transacao;
-        this.payment.datePayment = this.maturity.date;
-        this.payment.valuePaid = this.maturity.value;
-        this.payment.maturity = this.maturity;
+        if(maturity.payment != null){
+            payment = maturity.payment;
+            maturity.payment = null;
+        }else{
+            payment.valuePaid = maturity.value;
+            payment.datePayment = maturity.date;
+        }
+
+        payment.maturity = maturity;
+        this.payment = payment;
+        this.financialTransaction = event.calEvent.transacao;
         this.displayDialog = true;
     }
 
     onPaymentSubmit(){
-        if(this.payment.maturity.financialTransaction.financialTransactionType == "EXPENSE"){
-            expenseService.paid(this.payment);
+        if(this.financialTransaction.financialTransactionType.toString() == 'EXPENSE'){
+            this.expenseService.pay(this.payment, this.financialTransaction).then(() => this.displayDialog = false);
+        }
+        if(this.financialTransaction.financialTransactionType.toString() == 'INCOME'){
+            this.incomeService.pay(this.payment, this.financialTransaction).then(() => {
+                this.displayDialog = false;
+                this.router.navigate(['/calendar']);
+            });
         }
     }
 }

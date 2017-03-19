@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'my-expense',
   templateUrl: './expense.component.html',
-  styleUrls: ['./fundses.component.css'],
   providers: []
 })
 

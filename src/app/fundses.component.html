@@ -2,11 +2,16 @@
 <div *ngIf="!fundses">
 	<img src="assets/img/5.gif">
 </div>
-<ul class="heroes">
+<ul class="transaction">
   	<li *ngFor="let funds of fundses" 
   	(click)="onSelect(funds)">
-		<span class="badge">{{funds.description}}</span>{{funds.balance | currency:'BRL':true:'1.2-2'}}
+		<div class="col-md-2">
+			<span class="badge">{{funds.description}}</span>
+		</div>
+		<div>
+			{{funds.balance | currency:'BRL':true:'1.2-2'}}
+		</div>
 	</li>
 </ul>
 
-<button (click)="gotoCreate()" class="btn">Novo</button>
+<button (click)="gotoCreate()" class="btn btn-success">Novo</button>

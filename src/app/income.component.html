@@ -1,11 +1,15 @@
 <h2>Minhas Receitas</h2>
 <div *ngIf="!incomes"><img src="assets/img/5.gif"></div>
-<ul class="heroes">
+<ul class="transaction">
 	<li *ngFor="let income of incomes"
-	[class.selected]="income === selectedIncome" 
-  	(click)="onSelect(income)">
-		<span class="badge">{{income.id}}</span> {{income.description}}
+  	(click)="onSelect(income)" style="">
+  		<div class="col-md-2">
+			<span class="badge">{{income.description}}</span> 
+		</div>
+		<div>
+			{{income.valueTransaction | currency:'BRL':true:'1.2-2'}}
+		</div>
 	</li>
 </ul>
 
-<button (click)="gotoCreate()" class="btn">Novo</button>
+<button (click)="gotoCreate()" class="btn btn-success">Novo</button>

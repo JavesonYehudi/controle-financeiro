@@ -1,11 +1,16 @@
 <h2>Minhas Despesas</h2>
 <div *ngIf="!expenses"><img src="assets/img/5.gif"></div>
-<ul class="heroes">
+<ul class="transaction">
 	<li *ngFor="let expense of expenses"
 	[class.selected]="expense === selectedExpense" 
   	(click)="onSelect(expense)">
-		<span class="badge">{{expense.id}}</span> {{expense.description}}
+		<div class="col-md-2">
+			<span class="badge">{{expense.description}}</span> 
+		</div>
+		<div>
+			{{expense.valueTransaction | currency:'BRL':true:'1.2-2'}}
+		</div>
 	</li>
 </ul>
 
-<button (click)="gotoCreate()" class="btn">Novo</button>
+<button (click)="gotoCreate()" class="btn btn-success">Novo</button>
