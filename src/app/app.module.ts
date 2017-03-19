@@ -1,7 +1,10 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpModule, XHRBackend }    from '@angular/http';
+import { ExtendedXHRBackend } from './extended-xhr-backend'
+import { LoggedInGuard } from './logged-in-guard'
+import { UserService } from './user.service'
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -16,6 +19,7 @@ import { IncomeDetailsComponent }       from './income-details.component';
 import { ExpenseDetailsComponent }       from './expense-details.component';
 import { BankAccountDetailsComponent } from './bank-account-details.component';
 import { CreditCardDetailsComponent }  from './credit-card-details.component';
+import { AuthComponent }  from './auth.component';
 
 import { CreateFundsComponent }        from './create-funds.component';
 import { CreateFinancialTransactionComponent } from './create-financial-transaction.component';
@@ -53,9 +57,11 @@ import { DialogModule } from 'primeng/primeng';
     CreditCardDetailsComponent,
     BankAccountDetailsComponent,
     CalendarComponent,
-    MyCalendarComponent
+    MyCalendarComponent,
+    AuthComponent
   ],
-  providers: [ FundsService, CreditCardService, BankAccountService, IncomeService, ExpenseService ],
+  providers: [ FundsService, CreditCardService, BankAccountService, IncomeService, ExpenseService, { provide: XHRBackend, useClass: ExtendedXHRBackend },
+              LoggedInGuard, UserService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -12,20 +12,17 @@ import { Payment } from './payment';
 @Injectable()
 export class ExpenseService {
   private financialTransactionUrl = 'http://localhost:8080/controle-financeiro-ws/expense';  // URL to web api
-  private headers = new Headers({'Content-Type': 'application/json'});  
 
-  constructor(private http: Http) {
-this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb24iLCJwYXNzIjoiMTIzIiwianRpIjoiOTU0MmQwNWU4NTliNGIxZGEyNjQwYTJlMzgxY2Y4ZWMiLCJpYXQiOjE0ODg4MDQ0ODJ9.3lheLIHSECUe1lNLN4O0sg1n8J0VOey6IA38mh9cxUQ'); // ... Set content 
-  }
+  constructor(private http: Http) {}
 
   getFinancialTransactions(): Promise<FinancialTransaction[]> {
-    return this.http.get(this.financialTransactionUrl + '/list', {headers: this.headers})
+    return this.http.get(this.financialTransactionUrl + '/list')
               .toPromise()
               .then(mapFinancialTransaction);
   }
 
   getFinancialTransaction(id: number): Promise<FinancialTransaction> {
-    return this.http.get(this.financialTransactionUrl + '/find/' + id, {headers: this.headers})
+    return this.http.get(this.financialTransactionUrl + '/find/' + id)
             .toPromise()
             .then(response => response.json() as FinancialTransaction);
   }
@@ -34,29 +31,25 @@ this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb2
     var requestoptions = new RequestOptions({
       method: RequestMethod.Post,
       url: this.financialTransactionUrl + '/create',
-      headers: this.headers,
       body: JSON.stringify(financialTransaction)
     });
     return this.http.request(new Request(requestoptions)).toPromise().then(response => response.json() as FinancialTransaction)
   }
 
   updateFinancialTransaction(financialTransaction: FinancialTransaction): Promise<FinancialTransaction>{
-    var requestoptions = new RequestOptions({headers: this.headers});
     let body = JSON.stringify(financialTransaction);
-    return this.http.put(`${this.financialTransactionUrl}/update/${financialTransaction.id}` , body, requestoptions)
+    return this.http.put(`${this.financialTransactionUrl}/update/${financialTransaction.id}` , body)
       .toPromise().then(response => response.json() as FinancialTransaction);
   }
 
   deleteFinancialTransaction(id:number): Promise<FinancialTransaction>{
-    var requestoptions = new RequestOptions({headers: this.headers});
-    return this.http.delete(`${this.financialTransactionUrl}/delete/${id}`, requestoptions)
+    return this.http.delete(`${this.financialTransactionUrl}/delete/${id}`)
       .toPromise().then(response => response.json());
   }
 
   pay(payment: Payment, transaction: FinancialTransaction): Promise<FinancialTransaction>{
-    var requestoptions = new RequestOptions({headers: this.headers});
     let body = JSON.stringify(payment);
-    return this.http.put(`${this.financialTransactionUrl}/pay/${transaction.id}`, body, requestoptions)
+    return this.http.put(`${this.financialTransactionUrl}/pay/${transaction.id}`, body)
       .toPromise().then(response => response.json() as FinancialTransaction);
   }
 

@@ -13,18 +13,16 @@ export class BankAccountService {
   private bankAccountUrl = 'http://localhost:8080/controle-financeiro-ws/bank-account';  // URL to web api
   private headers = new Headers({'Content-Type': 'application/json'});  
 
-  constructor(private http: Http) {
-this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb24iLCJwYXNzIjoiMTIzIiwianRpIjoiOTU0MmQwNWU4NTliNGIxZGEyNjQwYTJlMzgxY2Y4ZWMiLCJpYXQiOjE0ODg4MDQ0ODJ9.3lheLIHSECUe1lNLN4O0sg1n8J0VOey6IA38mh9cxUQ'); // ... Set content 
-  }
+  constructor(private http: Http) {}
 
   getBankAccounts(): Promise<BankAccount[]> {
-    return this.http.get(this.bankAccountUrl + '/list', {headers: this.headers})
+    return this.http.get(this.bankAccountUrl + '/list')
               .toPromise()
               .then(mapBankAccount);
   }
 
   getBankAccount(id: number): Promise<BankAccount> {
-    return this.http.get(this.bankAccountUrl + '/find/' + id, {headers: this.headers})
+    return this.http.get(this.bankAccountUrl + '/find/' + id)
             .toPromise()
             .then(response => response.json() as BankAccount);
   }
@@ -33,22 +31,19 @@ this.headers.append('Authorization','eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImphdmVzb2
     var requestoptions = new RequestOptions({
       method: RequestMethod.Post,
       url: this.bankAccountUrl + '/create',
-      headers: this.headers,
       body: JSON.stringify(bankAccount)
     });
     return this.http.request(new Request(requestoptions)).toPromise().then(response => response.json() as BankAccount)
   }
 
   updateBankAccount(bankAccount: BankAccount): Promise<BankAccount>{
-    var requestoptions = new RequestOptions({headers: this.headers});
     let body = JSON.stringify(bankAccount);
-    return this.http.put(`${this.bankAccountUrl}/update/${bankAccount.id}` , body, requestoptions)
+    return this.http.put(`${this.bankAccountUrl}/update/${bankAccount.id}` , body)
       .toPromise().then(response => response.json() as BankAccount);
   }
 
   deleteBankAccount(id:number): Promise<BankAccount>{
-    var requestoptions = new RequestOptions({headers: this.headers});
-    return this.http.delete(`${this.bankAccountUrl}/delete/${id}`, requestoptions)
+    return this.http.delete(`${this.bankAccountUrl}/delete/${id}`)
       .toPromise().then(response => response.json());
   }
 

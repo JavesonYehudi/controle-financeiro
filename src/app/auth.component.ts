@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Angular2TokenService } from 'angular2-token';
+import { User } from './user'
+import { UserService } from './user.service'
+
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'auth',
@@ -8,23 +11,16 @@ import { Angular2TokenService } from 'angular2-token';
 })
 
 export class AuthComponent implements OnInit {
-	constructor(private _tokenService: Angular2TokenService) {
-        this._tokenService.init({
-	        apiBase: null
-        });
-    }
+	user: User = new User();
+	constructor(private userService: UserService, private router: Router) {}
 
 	ngOnInit(): void {
-		console.log(this);
 	}
 
 	signIn():void{
-		this._tokenService.signIn({
-		    email:    'example@example.org',
-		    password: 'secretPassword'
-		}).subscribe(
-		    res =>      console.log(res),
-		    error =>    console.log(error)
-		);
+		this.userService.autentica(this.user).subscribe(
+            res => {this.router.navigate(['calendar']);},
+            err => {}
+        );
 	}
 }

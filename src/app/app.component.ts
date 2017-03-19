@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { Funds } from './funds';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,5 @@ import { Funds } from './funds';
 })
 
 export class AppComponent{
-	title = 'Tour of Funds';
+	constructor(private user: UserService){ }
 }
